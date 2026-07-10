@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Mirada")]
     public Transform playerCamera;
-    public float mouseSensitivity = 0.1f; // El nuevo input maneja valores más altos, baja esto si es muy sensible
+    public float mouseSensitivity = 1; // El nuevo input maneja valores más altos, baja esto si es muy sensible
     public float LookLimit = 80.0f;
 
     [Header("Referencias del Nuevo Input System")]
@@ -18,23 +18,13 @@ public class PlayerMovement : MonoBehaviour
     public InputActionReference lookAction;
     public InputActionReference interactAction;
 
-    private CharacterController characterController;
+    public CharacterController characterController;
     private Vector3 moveDirection = Vector3.zero;
     private float verticalRotation = 0f;
 
     void Start()
     {
         characterController = GetComponent<CharacterController>();
-
-        // CONFIGURACIÓN CORRECTA DEL CURSOR PARA EL NUEVO INPUT SYSTEM
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-
-        // Corrección técnica: Forzar al nuevo Input System a reconocer el ratón aunque esté bloqueado
-        if (Mouse.current != null)
-        {
-            InputSystem.Update();
-        }
     }
 
     void Update()
