@@ -101,6 +101,17 @@
                 },
                 {
                     "name": "",
+                    "id": "32d915f5-9732-4988-98e5-5eddb20054a0",
+                    "path": "<Keyboard>/p",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "e1b8c4dd-7b3a-4db6-a93a-0889b59b1afc",
                     "path": "<Gamepad>/leftStick",
                     "interactions": "",
