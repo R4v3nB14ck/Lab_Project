@@ -18,7 +18,9 @@ public class PlayerMovement : MonoBehaviour
     public InputActionReference lookAction;
     public InputActionReference interactAction;
 
+    [Header("Otras Referencias")]
     public CharacterController characterController;
+    public GameManager gameManager;
     private Vector3 moveDirection = Vector3.zero;
     private float verticalRotation = 0f;
 
@@ -29,6 +31,8 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        if (gameManager.PauseMenu.activeSelf) return;
+
         Interaction();
         Movement();
     }

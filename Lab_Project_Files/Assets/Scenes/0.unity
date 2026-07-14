@@ -185,7 +185,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.000061035156}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: -0.15002441}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &504903675
@@ -735,7 +735,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 50, y: -50.289978}
+  m_AnchoredPosition: {x: 50, y: -50.29004}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1650780291
@@ -1253,12 +1253,13 @@ MonoBehaviour:
   speed: 5
   gravity: -9.81
   playerCamera: {fileID: 1592224010}
-  mouseSensitivity: 1
+  mouseSensitivity: 0.25
   LookLimit: 80
   moveAction: {fileID: -3191349354230456957, guid: 97210cd740af04df697b1fa71c9c9623, type: 3}
   lookAction: {fileID: 2345856494744509873, guid: 97210cd740af04df697b1fa71c9c9623, type: 3}
   interactAction: {fileID: 4487774808754929522, guid: 97210cd740af04df697b1fa71c9c9623, type: 3}
   characterController: {fileID: 2064944933}
+  gameManager: {fileID: 1874768975}
 --- !u!1 &2883702607393727433
 GameObject:
   m_ObjectHideFlags: 0

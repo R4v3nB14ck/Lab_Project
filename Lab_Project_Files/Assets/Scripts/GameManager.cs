@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
     public InputActionReference PauseAction;
     public GameObject PauseMenu;
 
+
     private void Start()
     {
         Pause();
@@ -29,8 +30,8 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         //Pause Menu
-        if (PauseAction.action.WasPressedThisFrame()) if (PauseMenu.activeSelf) Pause(); else UnPause();
+        if (PauseAction.action.WasPressedThisFrame()) if (PauseMenu.activeSelf) UnPause(); else Pause();
 
-        MobileControls.SetActive(Application.isMobilePlatform);
+        MobileControls.SetActive(Application.isMobilePlatform && !PauseMenu.activeSelf);
     }
 }
