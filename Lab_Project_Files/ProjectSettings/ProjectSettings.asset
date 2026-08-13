@@ -375,7 +375,7 @@ PlayerSettings:
     BACKGROUND: black
     OPTIMIZE_FOR_PIXEL_ART: false
     PRODUCT_DESCRIPTION: 
-    SCALE_TO_FIT: false
+    SCALE_TO_FIT: true
   mobileMTRendering:
     Android: 1
     iPhone: 1
@@ -645,7 +645,7 @@ PlayerSettings:
   blurSplashScreenBackground: 1
   spritePackerPolicy: 
   webGLMemorySize: 16
-  webGLExceptionSupport: 1
+  webGLExceptionSupport: 3
   webGLNameFilesAsHashes: 0
   webGLShowDiagnostics: 0
   webGLDataCaching: 1
@@ -661,7 +661,7 @@ PlayerSettings:
   webGLThreadsSupport: 0
   webGLDecompressionFallback: 1
   webGLInitialMemorySize: 32
-  webGLMaximumMemorySize: 2048
+  webGLMaximumMemorySize: 1024
   webGLMemoryGrowthMode: 2
   webGLMemoryLinearGrowthStep: 16
   webGLMemoryGeometricGrowthStep: 0.2
