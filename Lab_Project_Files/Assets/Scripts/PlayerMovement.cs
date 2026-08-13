@@ -6,7 +6,6 @@ public class PlayerMovement : MonoBehaviour
 {
     [Header("Movimiento")]
     public float speed = 5.0f;
-    public float gravity = -9.81f;
 
     [Header("Mirada")]
     public Transform playerCamera;
@@ -48,7 +47,7 @@ public class PlayerMovement : MonoBehaviour
     void Movement()
     {
         // --- 1. ROTACIÓN (MIRAR) usando Vector2 ---
-        Vector2 lookInput = lookAction.action.ReadValue<Vector2>();
+        Vector2 lookInput = lookAction.action.ReadValue<Vector2>() * Time.deltaTime;
 
         float mouseX = lookInput.x * mouseSensitivity;
         float mouseY = lookInput.y * mouseSensitivity;
@@ -76,7 +75,7 @@ public class PlayerMovement : MonoBehaviour
         // Aplicamos gravedad básica
         if (!characterController.isGrounded)
         {
-            currentY += gravity * Time.deltaTime;
+            currentY += Physics.gravity.y * Time.deltaTime;
         }
         else
         {
