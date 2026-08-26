@@ -49,7 +49,7 @@ public class PlayerMovement : MonoBehaviour
         if (gameManager.PauseMenu.activeSelf) return;
 
         // --- 1. ROTACIÓN (MIRAR) usando Vector2 ---
-        Vector2 lookInput = lookAction.action.ReadValue<Vector2>() * Time.deltaTime;
+        Vector2 lookInput = lookAction.action.ReadValue<Vector2>();
 
         float mouseX = lookInput.x * mouseSensitivity * gameManager.MouseSensMultiplier;
         float mouseY = lookInput.y * mouseSensitivity * gameManager.MouseSensMultiplier;

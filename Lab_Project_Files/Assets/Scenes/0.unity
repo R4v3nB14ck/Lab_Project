@@ -3940,7 +3940,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
   speed: 5
   playerCamera: {fileID: 246439714}
-  mouseSensitivity: 50
+  mouseSensitivity: 1
   LookLimit: 80
   moveAction: {fileID: -3191349354230456957, guid: 97210cd740af04df697b1fa71c9c9623, type: 3}
   lookAction: {fileID: 2345856494744509873, guid: 97210cd740af04df697b1fa71c9c9623, type: 3}
