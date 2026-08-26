@@ -46,11 +46,13 @@ public class PlayerMovement : MonoBehaviour
 
     void Movement()
     {
+        if (gameManager.PauseMenu.activeSelf) return;
+
         // --- 1. ROTACIÓN (MIRAR) usando Vector2 ---
         Vector2 lookInput = lookAction.action.ReadValue<Vector2>() * Time.deltaTime;
 
-        float mouseX = lookInput.x * mouseSensitivity;
-        float mouseY = lookInput.y * mouseSensitivity;
+        float mouseX = lookInput.x * mouseSensitivity * gameManager.MouseSensMultiplier;
+        float mouseY = lookInput.y * mouseSensitivity * gameManager.MouseSensMultiplier;
 
         // Rotación horizontal (Cuerpo)
         transform.Rotate(Vector3.up * mouseX);

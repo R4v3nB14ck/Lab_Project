@@ -7,11 +7,16 @@ public class GameManager : MonoBehaviour
     public InputActionReference PauseAction;
     public GameObject PauseMenu;
     public GameObject MainMenuCamera;
-
+    public float MouseSensMultiplier = 1;
 
     private void Start()
     {
         Pause();
+    }
+
+    public void SetMouseSensMultiplier(float value)
+    {
+        MouseSensMultiplier = value;
     }
 
     public void Pause()

@@ -8,15 +8,15 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Ceiling
-  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
+  m_Shader: {fileID: 4800000, guid: 95706a83b89758945bb1a3f064fa061e, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _EMISSION
   - _NORMALMAP
+  m_InvalidKeywords:
   - _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
-  m_InvalidKeywords: []
-  m_LightmapFlags: 1
+  m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
@@ -44,12 +44,12 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
         m_Texture: {fileID: 2800000, guid: f40c8855433854d44963360f34efa410, type: 3}
-        m_Scale: {x: 0.15, y: 0.15}
-        m_Offset: {x: -0.011, y: 0.22}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 2800000, guid: f8ea7e8b8e947914b9f768825e5184ca, type: 3}
-        m_Scale: {x: 0.15, y: 0.15}
-        m_Offset: {x: -0.011, y: 0.22}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -71,6 +71,7 @@ Material:
     - _GlossMapScale: 0.5
     - _Glossiness: 0.5
     - _GlossyReflections: 1
+    - _MapScale: 0.2
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
