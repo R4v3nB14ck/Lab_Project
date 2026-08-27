@@ -51,8 +51,8 @@ public class PlayerMovement : MonoBehaviour
         // --- 1. ROTACIÓN (MIRAR) usando Vector2 ---
         Vector2 lookInput = lookAction.action.ReadValue<Vector2>();
 
-        float mouseX = lookInput.x * mouseSensitivity * gameManager.MouseSensMultiplier;
-        float mouseY = lookInput.y * mouseSensitivity * gameManager.MouseSensMultiplier;
+        float mouseX = lookInput.x * mouseSensitivity * Time.unscaledDeltaTime;
+        float mouseY = lookInput.y * mouseSensitivity * Time.unscaledDeltaTime;
 
         // Rotación horizontal (Cuerpo)
         transform.Rotate(Vector3.up * mouseX);
@@ -72,7 +72,7 @@ public class PlayerMovement : MonoBehaviour
 
         // Combinamos y aplicamos velocidad física
         float currentY = moveDirection.y; // Conservamos la gravedad actual
-        moveDirection = (forwardMovement + rightMovement).normalized * speed;
+        moveDirection = (forwardMovement + rightMovement) * speed;
 
         // Aplicamos gravedad básica
         if (!characterController.isGrounded)
