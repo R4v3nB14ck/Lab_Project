@@ -15,7 +15,6 @@ public class PlayerMovement : MonoBehaviour
     [Header("Referencias del Nuevo Input System")]
     public InputActionReference moveAction;
     public InputActionReference lookAction;
-    public InputActionReference interactAction;
 
     [Header("Otras Referencias")]
     public CharacterController characterController;
@@ -30,29 +29,21 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        if (gameManager.PauseMenu.activeSelf) return;
+        if (gameManager && gameManager.PauseMenu.activeSelf) return;
 
-        Interaction();
         Movement();
-    }
-
-    void Interaction()
-    {
-        if (interactAction.action.WasPressedThisFrame())
-        {
-            Debug.Log("Interact");
-        }
     }
 
     void Movement()
     {
-        if (gameManager.PauseMenu.activeSelf) return;
+        if (gameManager && gameManager.PauseMenu.activeSelf) return;
 
         // --- 1. ROTACIÓN (MIRAR) usando Vector2 ---
         Vector2 lookInput = lookAction.action.ReadValue<Vector2>();
+        float sensmultiplier = gameManager ? gameManager.MouseSensMultiplier : 1;
 
-        float mouseX = lookInput.x * mouseSensitivity * Time.unscaledDeltaTime;
-        float mouseY = lookInput.y * mouseSensitivity * Time.unscaledDeltaTime;
+        float mouseX = lookInput.x * (mouseSensitivity * sensmultiplier) * Time.unscaledDeltaTime;
+        float mouseY = lookInput.y * (mouseSensitivity * sensmultiplier) * Time.unscaledDeltaTime;
 
         // Rotación horizontal (Cuerpo)
         transform.Rotate(Vector3.up * mouseX);

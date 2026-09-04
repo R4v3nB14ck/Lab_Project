@@ -7,6 +7,8 @@ public class GameManager : MonoBehaviour
     public InputActionReference PauseAction;
     public GameObject PauseMenu;
     public GameObject MainMenuCamera;
+    public GameObject PlayerCam;
+    public GameObject HUD;
     public float MouseSensMultiplier = 1;
 
     private void Start()
@@ -28,6 +30,8 @@ public class GameManager : MonoBehaviour
         Cursor.visible = true;
         PauseMenu.SetActive(true);
         MainMenuCamera.SetActive(true);
+        PlayerCam.SetActive(false);
+        HUD.SetActive(false);
     }
 
     public void UnPause()
@@ -40,6 +44,8 @@ public class GameManager : MonoBehaviour
         Cursor.visible = false;
         PauseMenu.SetActive(false);
         MainMenuCamera.SetActive(false);
+        PlayerCam.SetActive(true);
+        HUD.SetActive(true);
     }
 
     void Update()
