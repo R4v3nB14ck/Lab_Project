@@ -29,14 +29,12 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        if (gameManager && gameManager.PauseMenu.activeSelf) return;
-
         Movement();
     }
 
     void Movement()
     {
-        if (gameManager && gameManager.PauseMenu.activeSelf) return;
+        if (!playerCamera.gameObject.activeSelf) return;
 
         // --- 1. ROTACIÓN (MIRAR) usando Vector2 ---
         Vector2 lookInput = lookAction.action.ReadValue<Vector2>();
@@ -79,5 +77,13 @@ public class PlayerMovement : MonoBehaviour
 
         // Movemos el personaje
         characterController.Move(moveDirection * Time.deltaTime);
+    }
+
+    public void Teleport(Vector3 position, Quaternion rotation)
+    {
+        verticalRotation = 0f;
+        moveDirection = Vector3.zero;
+        transform.position = position;
+        transform.rotation = rotation;
     }
 }

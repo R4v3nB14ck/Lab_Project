@@ -1,49 +1,41 @@
 using UnityEngine;
-using UnityEngine.InputSystem; // Necesario para el New Input System
-using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 public class PlayerInteraction : MonoBehaviour
 {
     public float maxDistance = 1.5f;
     public LayerMask interactableLayer;
-    public GameObject indicator; // Tu imagen UI
+    public GameObject indicator;
     public Transform playerCamera;
-
-    private GraphicRaycaster currentCanvasRaycaster;
+    public InputActionReference InteractAction;
+    public GameManager gameManager;
 
     void Update()
     {
+        if (gameManager.OnInteractionCam)
+        {
+            indicator.SetActive(false);
+            return;
+        }
+
         Ray ray = new Ray(playerCamera.position, playerCamera.forward);
         RaycastHit hit;
 
-        // Comprobamos si miramos al layer "interactable" dentro de la distancia
         if (Physics.Raycast(ray, out hit, maxDistance, interactableLayer))
         {
-            // Mostramos el indicador
-            if (indicator != null) indicator.SetActive(true);
+            indicator.SetActive(true);
 
-            // Obtenemos el Raycaster del canvas que estamos mirando
-            GraphicRaycaster gr = hit.collider.GetComponent<GraphicRaycaster>();
-
-            if (gr != null)
+            if (InteractAction.action.WasPressedThisFrame())
             {
-                gr.enabled = true; // Permitimos interactuar
-                currentCanvasRaycaster = gr;
+                if(hit.transform.tag == "Acertijo1")
+                {
+                    hit.transform.GetComponent<Acertijo_1>().InteractFocus();
+                }
             }
         }
         else
         {
-            // Si no estamos mirando nada interactuable o estamos lejos:
-
-            // Ocultamos el indicador
-            if (indicator != null) indicator.SetActive(false);
-
-            // Deshabilitamos el último raycaster activo para que no se pueda clickear
-            if (currentCanvasRaycaster != null)
-            {
-                currentCanvasRaycaster.enabled = false;
-                currentCanvasRaycaster = null;
-            }
+            indicator.SetActive(false);
         }
     }
 
