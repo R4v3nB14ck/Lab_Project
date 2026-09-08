@@ -34,7 +34,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Movement()
     {
-        if (!playerCamera.gameObject.activeSelf) return;
+        if (!playerCamera.gameObject.activeSelf || gameManager.OnInteractionCam) return;
 
         // --- 1. ROTACIÓN (MIRAR) usando Vector2 ---
         Vector2 lookInput = lookAction.action.ReadValue<Vector2>();

@@ -18,6 +18,8 @@ public class PlayerInteraction : MonoBehaviour
             return;
         }
 
+        if (!playerCamera.gameObject.activeSelf) return;
+
         Ray ray = new Ray(playerCamera.position, playerCamera.forward);
         RaycastHit hit;
 
