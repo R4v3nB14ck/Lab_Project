@@ -82,6 +82,7 @@ public class PlayerMovement : MonoBehaviour
     public void Teleport(Vector3 position, Quaternion rotation)
     {
         verticalRotation = 0f;
+        playerCamera.localRotation = Quaternion.identity;
         moveDirection = Vector3.zero;
         transform.position = position;
         transform.rotation = rotation;
