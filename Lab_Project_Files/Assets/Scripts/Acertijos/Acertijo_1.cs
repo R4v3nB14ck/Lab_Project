@@ -2,6 +2,7 @@ using System.Collections;
 using TMPro;
 using Unity.Cinemachine;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class Acertijo_1 : MonoBehaviour
@@ -66,6 +67,10 @@ public class Acertijo_1 : MonoBehaviour
         PanelCanvas.enabled = false;
         gameManager.PlayerCam.SetActive(true);
         PanelFrameCam.enabled = false;
+
+        Enunciado1.Hide();
+        Enunciado2.Hide();
+        Enunciado3.Hide();
 
         yield return new WaitForSeconds(1f);
 
