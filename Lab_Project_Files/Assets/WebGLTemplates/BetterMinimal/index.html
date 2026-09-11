@@ -6,156 +6,98 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<title>{{{ PRODUCT_NAME }}}</title>
 	<style>
-		html,
-		body {
+		html, body {
 			background: {{{ BACKGROUND || '#000' }}};
-			width: 100%;
-			height: 100%;
-			overflow: hidden;
-			padding: 0;
-			margin: 0;
-			font-family: sans-serif;
+			width: 100%; height: 100%;
+			overflow: hidden; padding: 0; margin: 0;
 		}
 
 		div#gameContainer {
-			background: transparent !important;
-			position: absolute;
+			width: 100%; height: 100%;
+			display: flex; align-items: center; justify-content: center;
 		}
 
-		div#gameContainer canvas {
-			position: absolute;
-			-webkit-user-select: none;
-			user-select: none;
+		canvas {
+			width: 100%; height: 100%;
+			object-fit: contain; /* Esto asegura el 16:9 sin deformar */
 		}
 
-		div#gameContainer canvas[data-pixel-art="true"] {
-			position: absolute;
-			image-rendering: pixelated;
-		}
-
-		/* Botón de Pantalla Completa elegante */
+		/* Botón discreto arriba a la derecha */
 		#fullscreen-button {
-			position: fixed;
-			bottom: 20px;
-			right: 20px;
-			width: 50px;
-			height: 50px;
-			background: rgba(0, 0, 0, 0.5);
+			position: absolute;
+			top: 10px; right: 10px;
+			width: 40px; height: 40px;
+			background: rgba(0, 0, 0, 0.3);
 			border-radius: 50%;
 			cursor: pointer;
 			z-index: 1000;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			border: 2px solid rgba(255, 255, 255, 0.3);
-			transition: all 0.3s;
-			backdrop-filter: blur(5px);
+			display: flex; align-items: center; justify-content: center;
+			border: 1px solid rgba(255, 255, 255, 0.2);
+			transition: opacity 0.3s;
+			opacity: 0.5;
 		}
-
-		#fullscreen-button:hover {
-			background: rgba(0, 0, 0, 0.8);
-			transform: scale(1.1);
-		}
-
-		#fullscreen-button svg {
-			width: 25px;
-			height: 25px;
-			fill: white;
-		}
+		#fullscreen-button:hover { opacity: 1; }
+		#fullscreen-button svg { width: 20px; height: 20px; fill: white; }
 	</style>
 </head>
 
 <body>
 	<div id="gameContainer">
-		<canvas id="unity-canvas" width="{{{ WIDTH }}}" height="{{{ HEIGHT }}}" data-pixel-art="{{{ OPTIMIZE_FOR_PIXEL_ART }}}"></canvas>
-		
-		<button id="fullscreen-button" title="Pantalla completa">
+		<canvas id="unity-canvas" data-pixel-art="{{{ OPTIMIZE_FOR_PIXEL_ART }}}"></canvas>
+		<button id="fullscreen-button">
 			<svg viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
 		</button>
-
-		<script src="Build/{{{ LOADER_FILENAME }}}"></script>
-		<script>
-			var canvas = document.querySelector("#unity-canvas");
-			var container = document.querySelector("#gameContainer");
-			var fullscreenButton = document.querySelector("#fullscreen-button");
-			
-			var config = {
-				dataUrl: "Build/{{{ DATA_FILENAME }}}",
-				frameworkUrl: "Build/{{{ FRAMEWORK_FILENAME }}}",
-				codeUrl: "Build/{{{ CODE_FILENAME }}}",
-#if MEMORY_FILENAME
-				memoryUrl: "Build/{{{ MEMORY_FILENAME }}}",
-#endif
-#if SYMBOLS_FILENAME
-				symbolsUrl: "Build/{{{ SYMBOLS_FILENAME }}}",
-#endif
-				streamingAssetsUrl: "StreamingAssets",
-				companyName: "{{{ COMPANY_NAME }}}",
-				productName: "{{{ PRODUCT_NAME }}}",
-				productVersion: "{{{ PRODUCT_VERSION }}}",
-				autoSyncPersistentDataPath: true,
-			};
-
-			var scaleToFit = true;
-
-			function onResize() {
-				var w = window.innerWidth;
-				var h = window.innerHeight;
-				var r = {{{ HEIGHT }}} / {{{ WIDTH }}};
-
-				if (w * r > window.innerHeight) {
-					w = Math.min(w, Math.ceil(h / r));
-				}
-				h = Math.floor(w * r);
-
-				container.style.width = canvas.style.width = w + "px";
-				container.style.height = canvas.style.height = h + "px";
-				container.style.top = Math.floor((window.innerHeight - h) / 2) + "px";
-				container.style.left = Math.floor((window.innerWidth - w) / 2) + "px";
-			}
-
-			createUnityInstance(canvas, config, (p) => {}).then((instance) => {
-				onResize();
-			});
-
-			window.addEventListener('resize', onResize);
-
-			// --- LÓGICA DE FULLSCREEN Y ROTACIÓN ---
-			
-			async function toggleFullscreen() {
-				if (!document.fullscreenElement) {
-					try {
-						await container.requestFullscreen();
-						if (screen.orientation && screen.orientation.lock) {
-							await screen.orientation.lock('landscape');
-						}
-					} catch (e) { console.error(e); }
-				} else {
-					if (document.exitFullscreen) await document.exitFullscreen();
-				}
-			}
-
-			fullscreenButton.onclick = toggleFullscreen;
-
-			// Detectar giro del dispositivo para activar fullscreen automáticamente
-			window.addEventListener("orientationchange", () => {
-				setTimeout(() => {
-					if (window.innerWidth > window.innerHeight) {
-						if (!document.fullscreenElement) {
-							toggleFullscreen();
-						}
-					}
-				}, 500);
-			});
-
-			// Configuración móvil
-			if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
-				const meta = document.createElement('meta');
-				meta.name = 'viewport';
-				meta.content = 'width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover';
-				document.getElementsByTagName('head')[0].appendChild(meta);
-			}
-		</script>
 	</div>
+
+	<script src="Build/{{{ LOADER_FILENAME }}}"></script>
+	<script>
+		var canvas = document.querySelector("#unity-canvas");
+		var container = document.querySelector("#gameContainer");
+		var config = {
+			dataUrl: "Build/{{{ DATA_FILENAME }}}",
+			frameworkUrl: "Build/{{{ FRAMEWORK_FILENAME }}}",
+			codeUrl: "Build/{{{ CODE_FILENAME }}}",
+#if MEMORY_FILENAME
+			memoryUrl: "Build/{{{ MEMORY_FILENAME }}}",
+#endif
+			streamingAssetsUrl: "StreamingAssets",
+			companyName: "{{{ COMPANY_NAME }}}",
+			productName: "{{{ PRODUCT_NAME }}}",
+			productVersion: "{{{ PRODUCT_VERSION }}}",
+		};
+
+		// Barra de carga nativa del template
+		function progressHandler(progress) {
+			var percent = progress * 100 + '%';
+			canvas.style.background = 'linear-gradient(to right, white, white ' + percent + ', transparent ' + percent + ', transparent) no-repeat center';
+			canvas.style.backgroundSize = '100% 0.5rem';
+		}
+
+		createUnityInstance(canvas, config, progressHandler).then((instance) => {
+			canvas.style.background = 'none'; // Quitar barra al terminar
+		});
+
+		// Lógica de fullscreen y rotación
+		const fsBtn = document.getElementById('fullscreen-button');
+		async function toggleFS() {
+			if (!document.fullscreenElement) {
+				await container.requestFullscreen().catch(e => console.log(e));
+				if (screen.orientation) await screen.orientation.lock('landscape').catch(e => {});
+			} else {
+				await document.exitFullscreen();
+			}
+		}
+		fsBtn.onclick = toggleFS;
+
+		window.addEventListener("orientationchange", () => {
+			if (window.innerWidth > window.innerHeight && !document.fullscreenElement) {
+				toggleFS();
+			}
+		});
+
+		// Optimización de performance: Evitar cálculos innecesarios
+		// El uso de CSS "object-fit: contain" es mucho más rápido para el navegador 
+		// que calcular el tamaño manualmente con JS.
+	</script>
 </body>
 </html>

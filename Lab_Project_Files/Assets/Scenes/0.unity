@@ -1741,7 +1741,7 @@ GameObject:
   - component: {fileID: 257837807}
   - component: {fileID: 257837808}
   m_Layer: 0
-  m_Name: Point Light
+  m_Name: WhiteExitLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1756,7 +1756,7 @@ Transform:
   m_GameObject: {fileID: 257837806}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.70710677, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 12.5, y: 2.88, z: -2.225}
+  m_LocalPosition: {x: 12.5, y: 2.88, z: -1.149}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1773,7 +1773,7 @@ Light:
   serializedVersion: 12
   m_Type: 2
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 5
+  m_Intensity: 2.5
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208

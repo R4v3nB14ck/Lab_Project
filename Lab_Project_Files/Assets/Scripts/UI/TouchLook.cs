@@ -12,7 +12,7 @@ public class TouchLook : OnScreenControl, IDragHandler
     public void OnDrag(PointerEventData eventData)
     {
         // Enviar el delta del toque al Input System como si fuera el LookAction
-        SendValueToControl(eventData.delta);
+        SendValueToControl(eventData.delta * 0.5f);
     }
 
     public void OnEndDrag(PointerEventData eventData)
