@@ -12,13 +12,11 @@ public class PlayerInteraction : MonoBehaviour
 
     void Update()
     {
-        if (gameManager.OnInteractionCam)
+        if (gameManager.LockPlayerMovement || !playerCamera.gameObject.activeSelf || !gameManager.Player.gameObject.activeSelf)
         {
             indicator.SetActive(false);
             return;
         }
-
-        if (!playerCamera.gameObject.activeSelf) return;
 
         Ray ray = new Ray(playerCamera.position, playerCamera.forward);
         RaycastHit hit;
@@ -29,9 +27,9 @@ public class PlayerInteraction : MonoBehaviour
 
             if (InteractAction.action.WasPressedThisFrame())
             {
-                if(hit.transform.tag == "Acertijo1")
+                if(hit.transform.tag == "Interactive")
                 {
-                    hit.transform.GetComponent<Acertijo_1>().InteractFocus();
+                    hit.transform.GetComponent<InteractionEvent>().Interact();
                 }
             }
         }

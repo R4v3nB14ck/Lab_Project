@@ -1,24 +1,26 @@
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour
 {
+    [Header("UI References")]
     public GameObject MobileControls;
-    public InputActionReference PauseAction;
-    public InputActionReference CancelAction;
-    public GameObject PauseMenu;
     public GameObject MainMenuCamera;
-    public GameObject PlayerCam;
+    public GameObject PauseMenu;
     public GameObject HUD;
     public GameObject InteractingHUD;
-    public float MouseSensMultiplier = 1;
-    public bool OnInteractionCam = false;
 
-    private void Start()
-    {
-        Pause();
-    }
+    [Header("Input")]
+    public InputActionReference PauseAction;
+    public InputActionReference CancelAction;
+
+    [Header("Other References")]
+    public PlayerMovement Player;
+    public DialogueSystem dialogueScript;
+
+    [Header("Config")]
+    public float MouseSensMultiplier = 1;
+    public bool LockPlayerMovement = true;
 
     public void SetMouseSensMultiplier(float value)
     {
@@ -27,10 +29,12 @@ public class GameManager : MonoBehaviour
 
     public void Pause()
     {
+        if (!Player.gameObject.activeSelf) return;
+
         UnlockCursor();
         PauseMenu.SetActive(true);
         MainMenuCamera.SetActive(true);
-        PlayerCam.SetActive(false);
+        Player.gameObject.SetActive(false);
         HUD.SetActive(false);
     }
 
@@ -48,7 +52,7 @@ public class GameManager : MonoBehaviour
         LockCursor();
         PauseMenu.SetActive(false);
         MainMenuCamera.SetActive(false);
-        PlayerCam.SetActive(true);
+        Player.gameObject.SetActive(true);
         HUD.SetActive(true);
     }
 
@@ -62,24 +66,14 @@ public class GameManager : MonoBehaviour
         Cursor.visible = false;
     }
 
-    public void EnableInteractionMode()
-    {
-        OnInteractionCam = true;
-        InteractingHUD.SetActive(true);
-    }
-
-    public void DisableInteractionMode()
-    {
-        OnInteractionCam = false;
-        InteractingHUD.SetActive(false);
-    }
-
     void Update()
     {
         //Pause Menu
-        if (PauseAction.action.WasPressedThisFrame() && !OnInteractionCam) if (PauseMenu.activeSelf) UnPause(); else Pause();
+        if (PauseAction.action.WasPressedThisFrame() && !LockPlayerMovement) if (PauseMenu.activeSelf) UnPause(); else Pause();
 
-        MobileControls.SetActive((Application.isMobilePlatform || IsRunningInSimulator()) && !PauseMenu.activeSelf && !OnInteractionCam);
+        MobileControls.SetActive((Application.isMobilePlatform || IsRunningInSimulator()) && !PauseMenu.activeSelf && !LockPlayerMovement);
+
+        HUD.SetActive(!LockPlayerMovement);
     }
 
     public static bool IsRunningInSimulator()

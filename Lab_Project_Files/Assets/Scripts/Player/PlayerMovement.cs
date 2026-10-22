@@ -6,6 +6,7 @@ public class PlayerMovement : MonoBehaviour
 {
     [Header("Movimiento")]
     public float speed = 5.0f;
+    public bool CanMoveStart = false;
 
     [Header("Mirada")]
     public Transform playerCamera;
@@ -22,9 +23,23 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 moveDirection = Vector3.zero;
     private float verticalRotation = 0f;
 
-    void Start()
+    private void Awake()
     {
-        characterController = GetComponent<CharacterController>();
+        if(gameObject.activeSelf)
+        {
+            gameObject.SetActive(false);
+        }
+    }
+
+    private void Start()
+    {
+        Invoke("EnableLook", .5f);
+    }
+
+    void EnableLook()
+    {
+        lookAction.action.Reset();
+        CanMoveStart = true;
     }
 
     void Update()
@@ -34,7 +49,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Movement()
     {
-        if (!playerCamera.gameObject.activeSelf || gameManager.OnInteractionCam) return;
+        if (!playerCamera.gameObject.activeSelf || gameManager.LockPlayerMovement || !CanMoveStart) return;
 
         // --- 1. ROTACIÓN (MIRAR) usando Vector2 ---
         Vector2 lookInput = lookAction.action.ReadValue<Vector2>();
